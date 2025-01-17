@@ -1,0 +1,23 @@
+name: Deploy CI
+
+on:
+  push:
+    branch: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Run the appplication
+      env: 
+        API_KEY: "${{ secrets.API_KEY }}"
+      run: "python3 main.py"
